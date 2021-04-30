@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//FIXME quando hai fatto il login inserisci un reindirizzamento automatico alla pagina di login se non sei autenticato
 Route::get('/register', function() {
     return view('register', [
         'status' => 'not completed'

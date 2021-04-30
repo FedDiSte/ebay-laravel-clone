@@ -33,6 +33,7 @@ class UserController extends Controller
 
         $utente -> save();
 
+        //TODO reindirizzare verso pagina corretta
         return view('register', ['status' => 'completed']);
     }
 
