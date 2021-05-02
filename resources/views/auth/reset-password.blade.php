@@ -8,10 +8,10 @@
             <div class="col-md-6 my-5 px-5 py-2 card">
                 <p class="h1">Password dimenticata?</p>
                 <p class="small">Inserisci la tua mail e ti arriverà una mail per cambiarla</p>
-                <form action="/forgot-password" method="POST" class="form-floating">
+                <form action="/reset-password" method="POST" class="form-floating">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingEmail" placeholder="Email" name="email" aria-describedby="emailHelp" value="{{$session -> 'email'}}" required>
+                        <input type="text" class="form-control" id="floatingEmail" placeholder="Email" name="email" aria-describedby="emailHelp" required>
                         <label for="floatingEmail">Email</label>
                         @if ($status ?? '' == 'email_not_found')
                             <div class="form-text text-danger" id="emailHelp">Email non trovata, riprova</div>
@@ -30,6 +30,9 @@
                           <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Cambia la tua password</button>
                     </div>
                 </form>
+                @error('email')
+                    <strong>ERRROSEElksgslkd</strong>
+                @enderror
             </div>
             <div class="col-md-3"></div>
         </div>

@@ -15,18 +15,24 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingUsername" placeholder="Username" name="username" aria-describedby="usernameHelp" required>
                         <label for="floatingUsername">Username</label>
-                        @if ($status ?? '' == 'username_not_unique')
-                            <div class="form-text text-danger" id="usernameHelp">Hai inserito un username gia utilizzato, perfavore riprova</div>
-                        @endif
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                         <label for="floatingPassword">Password</label>
                     </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="flexCheckDefault" name="remember">
+                        <label for="flexCheckDefault" class="form-check-label">Ricordami</label>
+                    </div>
                     <div class="row align-items-center mb-3">
                           <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Effettua l'accesso</button>
                     </div>
                 </form>
+                @error('status')
+                    <div class="row">
+                        <p class="form-text text-danger text-center">Username o password errati, perfavore riprova</p>
+                    </div>
+                @enderror
                 <div class="mb-3 text-md-center">
                     <small class="text-muted">Non hai un account? <a href="{{url('/register')}}" role="button">Registrati</a></small>
                 </div>
