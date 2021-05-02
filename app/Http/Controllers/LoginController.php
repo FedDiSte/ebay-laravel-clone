@@ -3,22 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
 
     public function authenticate(Request $request) {
-
-        if(Auth::attempt([
-                'username' => $request->input('username'),
-                'password' => Hash::make($request->input('password'))
-            ])) {
+        if(Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')])) {
                 $request->session()->regenerate();
-                //TODO reindirizzare alla homepage
-                return redirect()->intended('');
-            }
+                return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'status' => 'Username or password non corretti'
+        ]);
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request -> session() -> invalidate();
+        $request -> session() -> regenerateToken();
+
+        return redirect('/');
     }
 
 }

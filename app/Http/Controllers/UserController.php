@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     //funzione utilizzata per verificare se un determinato dato (email o username) è unico nel database
     public function isUnique(String $type, String $element) {
-        return User::where($type, $element)->get() -> isEmpty();
+        return User::where($type, $element) -> get() -> isEmpty();
     }
 
     //Registrazione nuovo utente
@@ -20,12 +20,12 @@ class UserController extends Controller
         if(UserController::isUnique("username", $request->input('username'))) {
             $utente -> username = $request->input('username');
         } else {
-            return view('register', ['status' => 'username_not_unique']);
+            return view('auth.register', ['status' => 'username_not_unique']);
         }
         if(UserController::isUnique("email", $request->input('email'))) {
             $utente -> email = $request->input('email');
         } else {
-            return view('register', ['status' => 'email_not_unique']);
+            return view('auth.register', ['status' => 'email_not_unique']);
         }
         $utente -> nome = $request->input('nome');
         $utente -> cognome = $request->input('cognome');
@@ -33,8 +33,7 @@ class UserController extends Controller
 
         $utente -> save();
 
-        //TODO reindirizzare verso pagina corretta
-        return view('register', ['status' => 'completed']);
+        return view('auth.register', ['status' => 'completed']);
     }
 
 

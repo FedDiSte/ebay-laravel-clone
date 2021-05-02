@@ -24,15 +24,13 @@
                     <a class="nav-link" href="#">Features</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
+
         {{ $slot }}
         <script src="{{url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     </body>

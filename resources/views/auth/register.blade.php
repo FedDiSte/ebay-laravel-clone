@@ -42,8 +42,24 @@
                           <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Registrati</button>
                       </div>
                 </form>
+                <div class="mb-3 text-md-center">
+                    <small class="text-muted">Hai gia un account? Effettua il <a href="{{url('/login')}}" role="button">Login</a></small>
+                </div>
             </div>
             <div class="col-md-3"></div>
         </div>
+        @if ($status == 'completed')
+            <div class="row justify-content-center">
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Eddday</strong>
+                        <button class="btn-close" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Registrazione completata! Ora puoi effettuare il <a href="{{url('/login')}}" role="button">Login</a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </x-master>
