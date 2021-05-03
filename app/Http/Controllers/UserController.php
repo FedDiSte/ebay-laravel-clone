@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -34,6 +35,20 @@ class UserController extends Controller
         $utente -> save();
 
         return view('auth.register', ['status' => 'completed']);
+    }
+
+    //Ricezioni dati di utente per generare pagina profilo personale
+    public function getProfile(Request $request) {
+        $user = Auth::user();
+        
+        //TODO check se funziona
+        return view(user.profile, [
+            'nome' => $user['nome'],
+            'cognome' => $user['cognome'],
+            'username' => $user['username'],
+            'email' => $user['email'],
+            'data_creazione' => Carbon::createFromFormat('d m Y', $user['created_at']) -> toDateTimeString(),
+        ]);
     }
 
 

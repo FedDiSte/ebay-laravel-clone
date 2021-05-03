@@ -24,9 +24,13 @@ Route::post('login', [LoginController::class, 'authenticate']);
 Route::get('logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['auth']], function() {
+    //Route per index
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     }) -> name('home');
+
+    //Route profilo persona
+    Route::get('/profile', [UserController::class, 'getProfile']) -> name('profile');
 });
 
 Route::group(['middleware' => ['guest']], function() {
