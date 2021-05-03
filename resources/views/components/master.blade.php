@@ -17,10 +17,13 @@
             </div>
             <div class="offcanvas-body">
               <div class="list-group mb-3">
-                <a href="{{url('/')}}" class="list-group-item list-group-item-action"><i class="bi-house"></i>Home</a>
+                <a href="{{url('/')}}" class="list-group-item list-group-item-action"><i class="bi-house"></i> Home</a>
               </div>
               <div class="list-group mb-3">
-                <a href="{{url('/profile')}}" class="list-group-item list-group-item-action"><i class="bi-person"></i>Il mio profilo</a>
+                <a href="{{url('/profile')}}" class="list-group-item list-group-item-action"><i class="bi-person"></i> Il mio profilo</a>
+              </div>
+              <div class="list-group mb-3">
+                <a href="{{url('/create-ad')}}" class="list-group-item list-group-item-action"><i class="bi-bag-plus"></i> Crea una nuova inserzione</a>
               </div>
             </div>
         </div>

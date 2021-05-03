@@ -18,11 +18,24 @@ class User extends Authenticatable {
         'cognome',
         'email',
         'password',
+        'genere_preferito',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    /*
+     * Prende il genere preferito dell'utente
+     */
+
+    public function genere() {
+        return $this -> belongsTo(Genere::class, 'genere_preferito', 'id');
+    }
+
+    public function inserzioni() {
+        return $this -> hasMany(Inserzione::class, 'id_creatore', 'id');
+    }
 
 }

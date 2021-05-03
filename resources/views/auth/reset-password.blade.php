@@ -30,9 +30,6 @@
                           <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Cambia la tua password</button>
                     </div>
                 </form>
-                @error('email')
-                    <strong>ERRROSEElksgslkd</strong>
-                @enderror
             </div>
             <div class="col-md-3"></div>
         </div>

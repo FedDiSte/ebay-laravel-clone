@@ -23,41 +23,49 @@ Route::post('login', [LoginController::class, 'authenticate']);
 
 Route::get('logout', [LoginController::class, 'logout']);
 
-Route::group(['middleware' => ['auth']], function() {
+//Route utenti con autenticazione
+Route::group(['middleware' => ['auth']], function () {
     //Route per index
     Route::get('/', function () {
         return view('home');
-    }) -> name('home');
+    })->name('home');
 
     //Route profilo persona
-    Route::get('/profile', [UserController::class, 'getProfile']) -> name('profile');
+    Route::get('/profile', [UserController::class, 'getProfile'])->name('profile');
+
+    Route::get('/create-ad', function() {
+        return view('user.create-ad');
+    });
+
+    //TODO creare la funzione (e AdController) per creazione nuova inserzione
 });
 
-Route::group(['middleware' => ['guest']], function() {
+//Route per utenti non autenticati
+Route::group(['middleware' => ['guest']], function () {
     //route view della registrazione, accessibile solamente da utente guest
-    Route::get('register', function() {
+    Route::get('register', function () {
         return view('auth.register', [
             'status' => 'not completed'
         ]);
-    }) -> name('register');
+    })->name('register');
 
     Route::get('login', function () {
         return view('auth.login');
-    }) -> name('login');
+    })->name('login');
 
     //Route per password
     Route::get('forgot-password', function () {
         return view('auth.forgot-password');
-    }) -> name('password.request');
+    })->name('password.request');
 
     //Route per password dimenticata, invio email
-    Route::post('forgot-password', [ResetPasswordController::class, 'forgotPassword']) -> name('password.email');
+    Route::post('forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('password.email');
 
     //Route che indirizza al form di cambio password
-    Route::get('/reset-password/{token}', function($token) {
+    Route::get('/reset-password/{token}', function ($token) {
         return view('auth.reset-password', ['token' => $token]);
-    }) -> name('password.reset');
+    })->name('password.reset');
 
-    Route::post('reset-password', [ResetPasswordController::class, 'passwordUpdate']) -> name('password.update');
+    Route::post('reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
 });
 
