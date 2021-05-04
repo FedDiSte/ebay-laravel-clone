@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -30,9 +31,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/create-ad', function() {
         return view('user.create-ad');
-    });
+    }) -> name('create-ad');
 
-    //TODO creare la funzione (e AdController) per creazione nuova inserzione
+    Route::post('/create-ad', [AdController::class, 'create']);
+
+    Route::get('/inserzione/{id}', [AdController::class, 'showInserzione']) -> name('inserzione');
+
 });
 
 //Route per utenti non autenticati

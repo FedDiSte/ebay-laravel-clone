@@ -37,6 +37,7 @@
             </div>
             <div class="col-md-3"></div>
         </div>
+        {{--TODO aggiungi alert per password cambiata--}}
         @error('status')
         <div class="row">
             <div class="col-md-3"></div>

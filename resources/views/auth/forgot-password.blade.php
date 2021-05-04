@@ -25,5 +25,6 @@
             </div>
             <div class="col-md-3"></div>
         </div>
+        {{--TODO aggiungi notifica per email inviata--}}
     </div>
 </x-master>

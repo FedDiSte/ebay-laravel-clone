@@ -23,7 +23,7 @@ class ResetPasswordController extends Controller
             ? back()->with(['status' => __($status)])
             : back()->withErrors(['email' => __($status)]);
     }
-    
+
     function passwordUpdate(Request $request)
     {
         $request -> validate([

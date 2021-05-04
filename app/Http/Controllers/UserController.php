@@ -17,6 +17,7 @@ class UserController extends Controller
 
     //Registrazione nuovo utente
     public function createUser(Request $request) {
+        //TODO aggiorna al metodo nativo di laravel per validation
         $utente = new User;
 
         if(UserController::isUnique("username", $request->input('username'))) {
