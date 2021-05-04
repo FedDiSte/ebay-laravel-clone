@@ -16,11 +16,6 @@ use App\Http\Controllers\ResetPasswordController;
 |
 */
 
-//Route per la registrazione
-Route::post('register', [UserController::class, 'createUser']);
-
-Route::post('login', [LoginController::class, 'authenticate']);
-
 Route::get('logout', [LoginController::class, 'logout']);
 
 //Route utenti con autenticazione
@@ -43,6 +38,10 @@ Route::group(['middleware' => ['auth']], function () {
 //Route per utenti non autenticati
 Route::group(['middleware' => ['guest']], function () {
     //route view della registrazione, accessibile solamente da utente guest
+    Route::post('register', [UserController::class, 'createUser']);
+
+    Route::post('login', [LoginController::class, 'authenticate']);
+
     Route::get('register', function () {
         return view('auth.register', [
             'status' => 'not completed'

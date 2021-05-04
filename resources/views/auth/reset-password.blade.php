@@ -33,5 +33,14 @@
             </div>
             <div class="col-md-3"></div>
         </div>
+        @error('email')
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 alert alert-danger">
+                {{$email}}
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        @enderror
     </div>
 </x-master>

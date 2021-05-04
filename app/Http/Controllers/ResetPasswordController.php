@@ -23,11 +23,10 @@ class ResetPasswordController extends Controller
             ? back()->with(['status' => __($status)])
             : back()->withErrors(['email' => __($status)]);
     }
-
-    //TODO da rivedere
+    
     function passwordUpdate(Request $request)
     {
-        $request->validate([
+        $request -> validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
@@ -38,7 +37,7 @@ class ResetPasswordController extends Controller
             function ($user, $password) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($password)
-                ]) ->setRememberToken(Str::random(60));
+                ]) -> setRememberToken(Str::random(60));
 
                 $user->save();
 
