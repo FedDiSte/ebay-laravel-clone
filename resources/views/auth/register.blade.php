@@ -50,17 +50,13 @@
             <div class="col-md-3"></div>
         </div>
         @if ($status == 'completed')
-            <div class="row justify-content-center">
-                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <strong class="me-auto">Eddday</strong>
-                        <button class="btn-close" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    <div class="toast-body">
-                        Registrazione completata! Ora puoi effettuare il <a href="{{url('/login')}}" role="button">Login</a>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 alert alert-success">
+                Registrazione completata! Ora puoi effettuare il <a href="{{url('/login')}}" role="button">Login</a>
             </div>
+            <div class="col-md-3"></div>
+        </div>
         @endif
     </div>
 </x-master>

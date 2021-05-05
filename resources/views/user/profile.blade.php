@@ -1,5 +1,5 @@
 <x-master>
-
+    <x-headers></x-headers>
     <div class="container">
         <div class="row">
             <div class="col-md-12 card text-center my-5 px-5 py-2">
