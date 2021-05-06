@@ -6,3 +6,8 @@ body{
     display: none;
 }
 
+.thumb-post {
+    object-fit: cover;
+}
+
+

@@ -41,5 +41,4 @@ class AdController extends Controller
         $inserzione = Inserzione::find($id);
         return view('ad.inserzione', ['inserzione' => $inserzione]);
     }
-
 }

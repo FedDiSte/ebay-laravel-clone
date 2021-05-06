@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Models\Inserzione;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth']], function () {
     //Route per index
     Route::get('/', function () {
-        return view('home');
+        return view('home', ['inserzioni' => Inserzione::all()->take(20)]);
     })->name('home');
 
     //Route profilo persona
