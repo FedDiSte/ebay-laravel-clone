@@ -37,8 +37,9 @@ class AdController extends Controller
         return redirect()->route('inserzione', $inserzione);
     }
 
-    public function showInserzione(Inserzione $id) {
-        return view('ad.inserzione', ['inserzione', $id]);
+    public function showInserzione($id) {
+        $inserzione = Inserzione::find($id);
+        return view('ad.inserzione', ['inserzione' => $inserzione]);
     }
 
 }
