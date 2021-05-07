@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto;
 use App\Models\Inserzione;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AdController extends Controller
 {
@@ -17,7 +20,8 @@ class AdController extends Controller
             'descrizione' => 'required|max:250',
             'prezzo' => 'required',
             'fine_inserzione' => 'required|after:today',
-            'genere_id' => 'required'
+            'genere_id' => 'required',
+            'foto[]' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $request['prezzo'] = floatval($request -> input('prezzo'));
@@ -34,6 +38,24 @@ class AdController extends Controller
 
         $inserzione -> save();
 
+        if($request -> hasFile('foto')) {
+            foreach ($request -> file('foto') as $foto) {
+                $path = Storage::putFile('images', $foto);
+                $edit = Image::make($path);
+                if($edit -> height() >= $edit -> width()) {
+                    $edit -> crop(1280, 720);
+                } else {
+                    $edit -> resize(1280, 720);
+                }
+                $edit -> save();
+                Foto::create([
+                    'filename' => $path,
+                    'id_inserzione' => $inserzione -> id,
+                ]);
+            }
+
+        }
+
         return redirect()->route('inserzione', $inserzione);
     }
 
@@ -41,4 +63,5 @@ class AdController extends Controller
         $inserzione = Inserzione::find($id);
         return view('ad.inserzione', ['inserzione' => $inserzione]);
     }
+
 }

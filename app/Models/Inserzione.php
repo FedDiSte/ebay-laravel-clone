@@ -30,4 +30,8 @@ class Inserzione extends Model
         return $this -> belongsTo(Genere::class, 'genere_id', 'id');
     }
 
+    public function foto() {
+        return $this -> hasMany(Foto::class, 'id_inserzione', 'id');
+    }
+
 }

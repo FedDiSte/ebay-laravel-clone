@@ -5,7 +5,7 @@
             <div class="col-md-12 my-5 px-5 py-2 card text-center">
                 <h3 class="card-title">Crea la tua inserzione</h3>
                 <div class="text-start">
-                    <form action="/create-ad" method="POST" class="form-floating">
+                    <form action="/create-ad" method="POST" class="form-floating" enctype="multipart/form-data">
                         @csrf
                         {{-- TODO da aggiungere controlli su lunghezza dati --}}
                         <div class="form-floating mb-3">
@@ -39,6 +39,10 @@
                             </select>
                             <label for="floatingSelect">Inserisci un genere</label>
                         </div>
+                        <div class="mb-3">
+                            <label for="formFoto" class="form-label">Carica una foto, un post con più foto ha maggiori visualizzazioni</label>
+                            <input class="form-control" type="file" id="formFoto" name="foto[]" accept="image/*" multiple>
+                        </div>
                         <div class="row align-items-center mb-3">
                             <p class="text-danger form-text text-center" id="buttonHelp">
                                 Attenzione questi dati (per ora) {{--TODO da aggiungere possibilita modifica--}} non potranno essere modificati una volta inseriti
@@ -51,5 +55,16 @@
                 </div>
             </div>
         </div>
+        @if($errors -> any())
+            <div class="row">
+                <div class="col-md-12 alert alert-danger">
+                    <ul>
+                        @foreach($errors -> all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
     </div>
 </x-master>

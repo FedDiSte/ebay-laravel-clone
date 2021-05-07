@@ -8,16 +8,15 @@
                     <div class="row text-center justify-content-center">
                         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
-                                <button type="buton" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
-                                <button type="buton" data-bs-target="#carousel" data-bs-slide-to="1"></button>
+                                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+                                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"></button>
                             </div>
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{@asset('img/dark-placeholder.png')}}" alt="Placeholder" class="w-100 d-block">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{@asset('img/dark-placeholder.png')}}" alt="Placeholder" class="w-100 d-block">
-                                </div>
+                                @foreach($inserzione -> foto as $foto)
+                                    <div class="carousel-item @if($foto == $inserzione -> foto -> first()) active @endif">
+                                        <img src="{{@asset($foto -> filename)}}" alt="Placeholder" class="w-100 d-block thumb-post">
+                                    </div>
+                                @endforeach
                             </div>
                             <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
