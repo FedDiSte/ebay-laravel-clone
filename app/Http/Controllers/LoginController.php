@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
 
-    public function authenticate(Request $request)
-    {
+    public function authenticate(Request $request) {
         if(Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')], $request->input('remember'))) {
                 $request->session()->regenerate();
                 return redirect()->intended('/');

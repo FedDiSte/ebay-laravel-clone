@@ -20,6 +20,9 @@ class UserController extends Controller
         //TODO aggiorna al metodo nativo di laravel per validation
         $utente = new User;
 
+        dump($request -> input('password'));
+        dd();
+
         if(UserController::isUnique("username", $request->input('username'))) {
             $utente -> username = $request->input('username');
         } else {

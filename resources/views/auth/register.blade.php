@@ -36,7 +36,7 @@
                       </div>
                       {{-- TODO aggiungere controllo per password se <8 caratteri --}}
                       <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
                         <label for="floatingPassword">Password</label>
                       </div>
                       <div class="row align-items-center mb-3">

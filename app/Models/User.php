@@ -26,10 +26,6 @@ class User extends Authenticatable {
         'remember_token',
     ];
 
-    /*
-     * Prende il genere preferito dell'utente
-     */
-
     public function genere() {
         return $this -> belongsTo(Genere::class, 'genere_preferito', 'id');
     }
