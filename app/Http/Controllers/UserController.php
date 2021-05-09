@@ -17,25 +17,24 @@ class UserController extends Controller
 
     //Registrazione nuovo utente
     public function createUser(Request $request) {
-        //TODO aggiorna al metodo nativo di laravel per validation
+
+        $request -> validate ([
+            'username' => 'required|max:32|unique:utenti',
+            'email' => 'required|unique:utenti',
+            'nome' => 'required',
+            'cognome' => 'required',
+            'password' => 'required|min:8',
+            'genere_preferito' => 'required',
+        ]);
+
         $utente = new User;
 
-        dump($request -> input('password'));
-        dd();
-
-        if(UserController::isUnique("username", $request->input('username'))) {
-            $utente -> username = $request->input('username');
-        } else {
-            return view('auth.register', ['status' => 'username_not_unique']);
-        }
-        if(UserController::isUnique("email", $request->input('email'))) {
-            $utente -> email = $request->input('email');
-        } else {
-            return view('auth.register', ['status' => 'email_not_unique']);
-        }
+        $utente -> username = $request->input('username');
+        $utente -> email = $request->input('email');
         $utente -> nome = $request->input('nome');
         $utente -> cognome = $request->input('cognome');
         $utente -> password = Hash::make($request->input('password'));
+        $utente -> genere_preferito = $request -> input('genere_preferito');
 
         $utente -> save();
 
