@@ -5,7 +5,7 @@
         <div class="row">
             @foreach ($inserzioni as $inserzione)
             <div class="col-md-3">
-                <x-inserzione_preview>
+                <x-inserzione_preview stato="{{$inserzione['stato']}}">
                     <x-slot name="nome">
                         {{$inserzione['nome']}}
                     </x-slot>

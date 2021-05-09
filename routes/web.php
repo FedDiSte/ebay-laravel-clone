@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -35,6 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
     }) -> name('create-ad');
 
     Route::post('/create-ad', [AdController::class, 'create']);
+
+    Route::get('/my-ads', function () {
+        return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> get()]);
+    });
 
     Route::get('/inserzione/{id}', [AdController::class, 'showInserzione']) -> name('inserzione');
 

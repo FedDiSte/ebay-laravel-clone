@@ -40,7 +40,7 @@
                             <label for="floatingSelect">Inserisci un genere</label>
                         </div>
                         <div class="mb-3">
-                            <label for="formFoto" class="form-label">Carica una foto, un post con più foto ha maggiori visualizzazioni</label>
+                            <label for="formFoto" class="form-label">Carica una foto, un post con più foto ha maggiori visualizzazioni (non obbligatorio)</label>
                             <input class="form-control" type="file" id="formFoto" name="foto[]" accept="image/*" multiple>
                         </div>
                         <div class="row align-items-center mb-3">
