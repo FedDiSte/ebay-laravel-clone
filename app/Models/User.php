@@ -34,4 +34,8 @@ class User extends Authenticatable {
         return $this -> hasMany(Inserzione::class, 'id_creatore', 'id');
     }
 
+    public function offerte() {
+        return $this -> hasMany(Offerta::class, 'id_utente', 'id');
+    }
+
 }

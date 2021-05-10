@@ -34,4 +34,8 @@ class Inserzione extends Model
         return $this -> hasMany(Foto::class, 'id_inserzione', 'id');
     }
 
+    public function offerte() {
+        return $this -> hasMany(Offerta::class, 'id_inserzione', 'id');
+    }
+
 }

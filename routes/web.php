@@ -8,19 +8,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Models\Inserzione;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('logout', [LoginController::class, 'logout']);
-
 //Route utenti con autenticazione
 Route::group(['middleware' => ['auth']], function () {
     //Route per index
@@ -28,36 +15,47 @@ Route::group(['middleware' => ['auth']], function () {
         return view('home', ['inserzioni' => Inserzione::all()->take(20)]);
     })->name('home');
 
+    //Route per metodo logout
+    Route::get('logout', [LoginController::class, 'logout']);
+
     //Route profilo persona
     Route::get('/profile', [UserController::class, 'getProfile'])->name('profile');
 
+    //Route form creazione ad
     Route::get('/create-ad', function() {
         return view('user.create-ad');
     }) -> name('create-ad');
 
+    //Route metodi creazione ad
     Route::post('/create-ad', [AdController::class, 'create']);
 
+    //View per visualizzare le inserzioni inserite
     Route::get('/my-ads', function () {
         return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> get()]);
     });
 
+    //Ritorna un'inserzione cercata
+    //TODO da inserire view diversa se propria inserzione
     Route::get('/inserzione/{id}', [AdController::class, 'showInserzione']) -> name('inserzione');
 
 });
 
 //Route per utenti non autenticati
 Route::group(['middleware' => ['guest']], function () {
-    //route view della registrazione, accessibile solamente da utente guest
+    //Route invocata da form registrazione
     Route::post('register', [UserController::class, 'createUser']);
 
+    //Route invocata da form login
     Route::post('login', [LoginController::class, 'authenticate']);
 
+    //View del form di registrazione
     Route::get('register', function () {
         return view('auth.register', [
             'status' => 'not completed'
         ]);
     })->name('register');
 
+    //View del form di login
     Route::get('login', function () {
         return view('auth.login');
     })->name('login');
@@ -75,6 +73,7 @@ Route::group(['middleware' => ['guest']], function () {
         return view('auth.reset-password', ['token' => $token]);
     })->name('password.reset');
 
+    //Route che resetta la password
     Route::post('reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
 });
 
