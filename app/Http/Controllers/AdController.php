@@ -59,9 +59,19 @@ class AdController extends Controller
         return redirect()->route('inserzione', $inserzione);
     }
 
-    public function showInserzione($id) {
-        $inserzione = Inserzione::find($id);
-        return view('ad.inserzione', ['inserzione' => $inserzione]);
+    public function checkTermine() {
+        foreach(Inserzione::all() as $inserizone) {
+            //Controlla se si è raggiunto il tempo attuale per il termine dell'inserzione
+            if($inserzione -> fine_inserzione -> gt(now())) {
+                //Se l'inserzione è terminata viene aggiornato lo stato, poi si procede a controllare se è stata venduta a qualcuno
+                $inserizone -> stato = 1;
+                if(($inserizone -> offerte -> count()) > 0) {
+                    //Se l'inserzione aveva un acquirente viene inviata un email ad entrambi gli utenti
+                } else {
+                    //Viene informato il venditore dell'esito dell'inserzione
+                }
+            }
+        }
     }
 
 }

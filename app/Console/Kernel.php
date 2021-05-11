@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Http\Controllers\AdController;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        /*Viene richiamato ogni minuto il metodo per controllare se un post è scaduto, ed eventualmente viene inviata una mail al proprietario dell'inserzione
+        * ed al provabile acquirente
+        */
+        $schedule -> call([AdController::class, 'checkTermine']) -> everyMinute();
     }
 
     /**

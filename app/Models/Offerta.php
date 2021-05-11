@@ -24,4 +24,5 @@ class Offerta extends Model {
     public function inserzione() {
         return $this -> belongsTo(Inserzione::class, 'id_inserzione', 'id');
     }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\OffertaController;
 use App\Models\Inserzione;
 
 //Route utenti con autenticazione
@@ -23,7 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Route form creazione ad
     Route::get('/create-ad', function() {
-        return view('user.create-ad');
+        return view('ad.create-ad');
     }) -> name('create-ad');
 
     //Route metodi creazione ad
@@ -35,8 +36,18 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     //Ritorna un'inserzione cercata
-    //TODO da inserire view diversa se propria inserzione
-    Route::get('/inserzione/{id}', [AdController::class, 'showInserzione']) -> name('inserzione');
+    Route::get('/inserzione/{id}', function($id) {
+        $inserzione = Inserzione::find($id);
+        return view('ad.inserzione', ['inserzione' => $inserzione]);
+    }) -> name('inserzione');
+
+    //Route per piazzare un offerta su una determinata inserzione
+    Route::get('/piazza-offerta/{id}', function($id) {
+        $inserzione = Inserzione::find($id);
+        return view('ad.piazza-offerta', ['inserzione' => $inserzione]);
+    }) -> name('piazza-offerta');
+
+    Route::post('/piazza-offerta', [OffertaController::class, 'create']);
 
 });
 
