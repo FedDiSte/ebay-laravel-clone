@@ -9,6 +9,8 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\OffertaController;
 use App\Models\Inserzione;
 
+Route::get('test', [AdController::class, 'checkTermine']);
+
 //Route utenti con autenticazione
 Route::group(['middleware' => ['auth']], function () {
     //Route per index

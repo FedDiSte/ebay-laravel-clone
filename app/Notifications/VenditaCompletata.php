@@ -11,14 +11,16 @@ class VenditaCompletata extends Notification
 {
     use Queueable;
 
+    protected $inserzione;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($inserzione)
     {
-        //
+        $this -> inserzione = $inserzione;
     }
 
     /**
@@ -41,8 +43,7 @@ class VenditaCompletata extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage) -> view ('email.vendita-completata', [
-            'inserzione' => $inserzione,
-            'utente' => $utente,
+            'inserzione' => $this -> inserzione,
         ]);
     }
 }
