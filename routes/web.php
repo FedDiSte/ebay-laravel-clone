@@ -15,7 +15,7 @@ Route::get('test', [AdController::class, 'checkTermine']);
 Route::group(['middleware' => ['auth']], function () {
     //Route per index
     Route::get('/', function () {
-        return view('home', ['inserzioni' => Inserzione::all()->take(20)]);
+        return view('home', ['inserzioni' => Inserzione::where('stato', 0)->where('id_creatore' , '!=', Auth::id())->get()->take(20)]);
     })->name('home');
 
     //Route per metodo logout

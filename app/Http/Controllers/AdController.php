@@ -71,6 +71,7 @@ class AdController extends Controller
                 } else {
                     //Viene informato il venditore dell'esito dell'inserzione
                 }
+                $inserzione -> save();
             }
         }
     }

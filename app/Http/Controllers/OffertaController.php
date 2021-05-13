@@ -17,18 +17,38 @@ class OffertaController extends Controller {
             'prezzo' => 'required|numeric'
         ]);
 
-        if ( ($request -> input('prezzo') > (Inserzione::find($request -> input('id_inserzione')) -> prezzo))
-           and ($request -> input('prezzo') > (Inserzione::find($request -> input('id_inserzione')) -> offerte -> sortByDesc('prezzo') -> first() -> prezzo)) ) {
+        $inserzione = Inserzione::find($request -> input('id_inserzione'));
+
+        /*
+            Viene inizialmente controllato se l'inserzione ha delle offerte, se le ha viene controllato se il
+            prezzo inserito è maggiore di quello della offerta più alta, in tal caso viene salvata, se
+            l'inserzione non ha offerte viene controllato il prezzo originale dell'inserzione
+            Se uno di questi due controlli fallisce l'utente viene reindirizzato alla pagina precedente con l'errore
+        */
+        if( ($inserzione -> offerte -> count()) > 0) {
+            if( $request -> input('prezzo') > ($inserzione -> offerte -> max('prezzo')) ) {
+                $offerta = new Offerta();
+
+                $offerta -> id_utente = Auth::id();
+                $offerta -> id_inserzione = $inserzione -> id;
+                $offerta -> prezzo = $inserzione -> prezzo;
+
+                $offerta -> save();
+
+                return redirect('inserzione/'.$inserzione -> id)->with(['status' => 'success']);
+            } else {
+                return redirect()->back()->withErrors(['status' => 'Hai inserito un offerta non valida, prova ad offrire di più']);
+            }
+        } else if($request -> input('prezzo') > $inserzione -> prezzo) {
             $offerta = new Offerta();
 
             $offerta -> id_utente = Auth::id();
-            $offerta -> id_inserzione = $request -> input('id_inserzione');
-            $offerta -> prezzo = $request -> input('prezzo');
+            $offerta -> id_inserzione = $inserzione -> id;
+            $offerta -> prezzo = $inserzione -> prezzo;
 
             $offerta -> save();
 
-            return redirect('inserzione/'.$request -> input('id_inserzione'))->with(['status' => 'success']);
-
+            return redirect('inserzione/'.$inserzione -> id)->with(['status' => 'success']);
         } else {
             return redirect()->back()->withErrors(['status' => 'Hai inserito un offerta non valida, prova ad offrire di più']);
         }

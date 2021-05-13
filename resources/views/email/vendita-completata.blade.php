@@ -11,13 +11,13 @@
                     Ciao, {{ $inserzione->utente->nome }} {{ $inserzione->utente->cognome }} !
                 </p>
                 <p class="card-text">Sei riuscito a vendere il tuo prodotto a
-                    {{ $inserzione->offerte->sortByDesc('prezzo')->first()->prezzo }}€!
+                    {{ $inserzione->offerte->max('prezzo')->prezzo }}€!
                 </p>
                 <p class="card-text">Ora mettiti in contatto con l'acquirente per terminare la proceduta</p>
                 <p class="card-text">
-                    {{ $inserzione->offerte->sortByDesc('prezzo')->first()->utente->nome }}
-                    {{ $inserzione->offerte->sortByDesc('prezzo')->first()->utente->cognome }}
-                    {{ $inserzione->offerte->sortByDesc('prezzo')->first()->utente->email }}
+                    Nome: {{ $inserzione->offerte->max('prezzo')->utente->nome }}
+                    Cognome: {{ $inserzione->offerte->max('prezzo')->utente->cognome }}
+                    Email: {{ $inserzione->offerte->max('prezzo')->utente->email }}
                 </p>
             </div>
         </div>

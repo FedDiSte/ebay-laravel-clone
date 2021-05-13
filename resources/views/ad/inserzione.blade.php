@@ -52,7 +52,7 @@
                 <div class="row mb-3">
                     <p class="h3">Ultimo prezzo:
                         <small
-                            class="text-muted">{{ $inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ?? 'Non ci sono offerte' }}</small>
+                            class="text-muted">{{ $inserzione->offerte->max('prezzo') ?? 'Non ci sono offerte' }}</small>
                     </p>
                 </div>
                 <div class="row mb-3">
@@ -81,14 +81,15 @@
                 @if (!(Auth::id() == $inserzione->utente->id))
                     <div class="row mb-3">
                         <div class="col-md-8">
-                            <a href="/piazza-offerta/{{ $inserzione->id }}"
-                                class="btn btn-lg btn-outline-primary">Piazza un offerta</a>
+                            <a href="/piazza-offerta/{{ $inserzione->id }}" class="btn btn-lg btn-outline-primary">
+                                Piazza un offerta
+                            </a>
                         </div>
                     </div>
                 @endif
-                @if ($status ?? '' == 'success')
+                @if (session('status') ?? '' == 'success')
                     <div class="row">
-                        <div class="col-md-12 alert alert-danger">
+                        <div class="col-md-8 alert alert-success">
                             <p>Asta piazzata con successo!</p>
                         </div>
                     </div>

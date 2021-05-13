@@ -42,8 +42,18 @@ class VenditaCompletata extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage) -> view ('email.vendita-completata', [
-            'inserzione' => $this -> inserzione,
-        ]);
+        $utente = $this -> inserzione -> utente;
+        $inserzione = $this -> inserzione;
+        $url = url('/inserzione/' . $inserzione -> id);
+        $prezzo = $this -> inserzione -> offerte -> max('prezzo');
+        $acquirente = $this -> inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente;
+
+        return (new MailMessage)
+                    -> greeting('Ciao ' . $utente -> nome .' '. $utente -> cognome)
+                    -> line('Sei riuscit* a vendere ' . $inserzione -> nome)
+                    -> line('Il prezzo finale è ' . $prezzo . '€')
+                    -> action('Vedi la tua inserzione', $url)
+                    -> line('Per concludere mettiti in contatto con ' . $acquirente -> nome .' '. $acquirente -> cognome)
+                    -> line($acquirente -> email);
     }
 }
