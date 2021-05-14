@@ -11,6 +11,8 @@ class AcquistoCompletato extends Notification
 {
     use Queueable;
 
+    protected $inserzione;
+
     /**
      * Create a new notification instance.
      *
@@ -40,10 +42,19 @@ class AcquistoCompletato extends Notification
      */
     public function toMail($notifiable)
     {
+        $utente = $this -> inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente;
+        $inserzione -> $this -> inserzione;
+        $url = url('/inserzione/' . $inserzione -> id);
+        $prezzo = $this -> inserzione -> offerte -> max('prezzo');
+        $venditore = $this -> inserzione -> utente;
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    -> greeting('Ciao' . $utente -> nome . ' ' -> $utente -> cognome)
+                    -> line('Hai comprato con successo ' . $inserzione -> nome)
+                    -> line('La tua offerta è di ' . $prezzo . '€')
+                    -> action('Vedi inserzione', $url)
+                    -> line('Contatta il venditore ' . $venditore -> nome . ' ' . $venditore -> cognome
+                    -> line($venditore -> email);
     }
 
 }

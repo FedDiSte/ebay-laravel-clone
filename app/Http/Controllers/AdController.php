@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use App\Models\Inserzione;
 use App\Notifications\VenditaCompletata;
+use App\Notifications\AcquistoCompletato;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,13 +62,14 @@ class AdController extends Controller
     }
 
     public function checkTermine() {
-        foreach(Inserzione::all() as $inserzione) {
+        foreach(Inserzione::where('stato', 0) -> get() as $inserzione) {
             //Controlla se si è raggiunto il tempo attuale per il termine dell'inserzione
             if(Carbon::now() -> isAfter(Carbon::createFromTimeString($inserzione -> fine_inserzione))) {
                 //Se l'inserzione è terminata viene aggiornato lo stato, poi si procede a controllare se è stata venduta a qualcuno
                 $inserzione -> stato = 1;
                 if(($inserzione -> offerte -> count()) > 0) {
                     $inserzione -> utente -> notify(new VenditaCompletata($inserzione));
+                    $inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente -> notify(new AcquistoCompletato($inserzione));
                 } else {
                     //Viene informato il venditore dell'esito dell'inserzione
                 }
