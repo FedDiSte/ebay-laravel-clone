@@ -6,6 +6,8 @@ use App\Models\Foto;
 use App\Models\Inserzione;
 use App\Notifications\VenditaCompletata;
 use App\Notifications\AcquistoCompletato;
+use App\Notifications\AcquistoFallito;
+use App\Notifications\VenditaFallita    ;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,10 +70,16 @@ class AdController extends Controller
                 //Se l'inserzione è terminata viene aggiornato lo stato, poi si procede a controllare se è stata venduta a qualcuno
                 $inserzione -> stato = 1;
                 if(($inserzione -> offerte -> count()) > 0) {
-                    $inserzione -> utente -> notify(new VenditaCompletata($inserzione));
-                    $inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente -> notify(new AcquistoCompletato($inserzione));
+                    $venditore = $inserzione -> utente;
+                    $acquirente = $inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente;
+
+                    $venditore -> notify(new VenditaCompletata($inserzione));
+                    $acquirente -> notify(new AcquistoCompletato($inserzione));
+                    foreach( $inserzione -> offerte -> where('id_utente', '!=', $acquirente -> id) as $offertaFallita) {
+                        $offertaFallita -> utente -> notify(new AcquistoFallito($offertaFallita));
+                    }
                 } else {
-                    //Viene informato il venditore dell'esito dell'inserzione
+                    $inserzione -> utente -> notify(new VenditaFallita($inserzione));
                 }
                 $inserzione -> save();
             }

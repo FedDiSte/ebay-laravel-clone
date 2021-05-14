@@ -5,8 +5,9 @@
         <strong>Prezzo: </strong>
         <p class="card-text">{{ $prezzo }} €</p>
         <strong>Stato:</strong>
-        <p class="card-text @if ($stato==0) text-success @else text-danger @endif">
-            @if ($stato == 0) Attivo @else Venduto @endif
+        <p class="card-text @if ($topOfferta==1) text-success @else text-danger @endif">
+        @if ($topOfferta == 1) La tua offerta è la più alta @else La tua offerta è
+                stata superata @endif
         </p>
         <a href="/inserzione/{{ $id }}" class="btn btn-outline-primary">Apri</a>
     </div>

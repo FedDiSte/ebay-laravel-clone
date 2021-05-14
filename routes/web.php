@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\OffertaController;
 use App\Models\Inserzione;
+use App\Models\Offerta;
 
 Route::get('test', [AdController::class, 'checkTermine']);
 
@@ -35,6 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
     //View per visualizzare le inserzioni inserite
     Route::get('/my-ads', function () {
         return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> get()]);
+    });
+
+    Route::get('/following', function() {
+        return view('ad.following', ['offerte' => Offerta::where('id_utente') -> get() -> sortByDesc('prezzo') -> groupBy('id_inserzione')]);
     });
 
     //Ritorna un'inserzione cercata

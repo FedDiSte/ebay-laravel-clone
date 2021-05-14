@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcquistoCompletato extends Notification
+class VenditaFallita extends Notification
 {
     use Queueable;
 
@@ -20,7 +20,7 @@ class AcquistoCompletato extends Notification
      */
     public function __construct($inserzione)
     {
-        $this -> inserzione = $inserzione ;
+        $this -> inserzione = $inserzione;
     }
 
     /**
@@ -42,19 +42,14 @@ class AcquistoCompletato extends Notification
      */
     public function toMail($notifiable)
     {
-        $utente = $this -> inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente;
+        $utente = $this -> inserzione -> utente;
         $inserzione = $this -> inserzione;
-        $url = url('/inserzione/' . $inserzione -> id);
-        $prezzo = $this -> inserzione -> offerte -> max('prezzo');
-        $venditore = $this -> inserzione -> utente;
+        $url = url('/inserzione/'.$inserzione -> id);
 
         return (new MailMessage)
-                    -> greeting('Ciao ' . $utente -> nome . ' ' . $utente -> cognome)
-                    -> line('Hai comprato con successo ' . $inserzione -> nome)
-                    -> line('La tua offerta è di ' . $prezzo . '€')
-                    -> action('Vedi inserzione', $url)
-                    -> line('Contatta il venditore ' . $venditore -> nome . ' ' . $venditore -> cognome)
-                    -> line($venditore -> email);
+                    ->greeting('Ciao ' . $utente -> nome . ' ' . $utente -> cognome)
+                    ->line('Purtroppo non sei riuscit* a vendere ' . $inserzione -> nome . '...')
+                    ->line('Puoi sempre pubblicare nuovamente pubblicare una nuova inserzione!')
+                    ->action('Vedi la vecchia inserzione', $url);
     }
-
 }
