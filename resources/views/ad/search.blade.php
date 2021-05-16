@@ -6,7 +6,7 @@
         {{ $inserzione->nome }}
     @endforeach
 
-    {{-- TODO da migliorare --}}
+    <!-- TODO aggiornare la grafica di questa pagina-->
 
     {{ $inserzioni->links() }}
 </x-master>
