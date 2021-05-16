@@ -7,18 +7,18 @@
             <p class="h1">Controlla lo stato delle tue inserzioni</p>
         </div>
         <div class="row @if( ! (($inserzioni -> count()) > 0) ) text-center @endif ">
-            @if(($inserzioni -> count()) > 0)
-                @foreach ($inserzioni as $inserzione)
+            @if ($inserzioni->count() > 0)
+                @foreach ($inserzioni->sortBy('stato') as $inserzione)
                     <div class="col-md-3">
-                        <x-inserzione_preview stato="{{$inserzione['stato']}}">
+                        <x-inserzione_preview stato="{{ $inserzione['stato'] }}">
                             <x-slot name="nome">
-                                {{$inserzione['nome']}}
+                                {{ $inserzione['nome'] }}
                             </x-slot>
                             <x-slot name="prezzo">
-                                {{$inserzione['prezzo']}}
+                                {{ $inserzione->offerte->max('prezzo') ?? $inserzione['prezzo'] }}
                             </x-slot>
                             <x-slot name="id">
-                                {{$inserzione['id']}}
+                                {{ $inserzione['id'] }}
                             </x-slot>
                         </x-inserzione_preview>
                     </div>
@@ -26,7 +26,7 @@
             @else
                 <div class="col-md-12 alert alert-danger text-align-center text-justify-center">
                     <p>
-                        Non hai creato nessuna inserzione, <a href="{{url('/create-ad')}}">Creala</a>
+                        Non hai creato nessuna inserzione, <a href="{{ url('/create-ad') }}">Creala</a>
                     </p>
                 </div>
             @endif

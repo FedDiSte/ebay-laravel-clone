@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light mb-3" style="background-color: #fff">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff">
     <div class="container-fluid">
         <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
             aria-controls="offcanvas" aria-label="Apri Il Menu">

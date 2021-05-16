@@ -55,7 +55,11 @@ Route::group(['middleware' => ['auth']], function () {
         return view('ad.piazza-offerta', ['inserzione' => $inserzione]);
     }) -> name('piazza-offerta');
 
+    //Route post che si occupa di piazzare una determinata offerta
     Route::post('/piazza-offerta', [OffertaController::class, 'create']);
+
+    //Route per la ricerca di inserzioni
+    Route::post('/search', [AdController::class, 'search']);
 
 });
 

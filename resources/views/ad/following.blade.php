@@ -23,7 +23,7 @@
                 @endforeach
             @else
                 <div class="col-md-12">
-                    <h1 class="display-4">Non hai piazzato nessuna asta!</h1>
+                    <h1 class="display-4">Non hai piazzato nessuna offerta!</h1>
                 </div>
             @endif
         </div>
