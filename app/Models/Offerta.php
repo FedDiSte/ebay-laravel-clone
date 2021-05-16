@@ -11,7 +11,6 @@ class Offerta extends Model {
     protected $table = 'offerta';
 
     protected $fillable = [
-        'id',
         'id_utente',
         'id_inserzione',
         'prezzo',

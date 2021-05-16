@@ -31,7 +31,7 @@ class OffertaController extends Controller {
 
                 $offerta -> id_utente = Auth::id();
                 $offerta -> id_inserzione = $inserzione -> id;
-                $offerta -> prezzo = $inserzione -> prezzo;
+                $offerta -> prezzo = $request -> input('prezzo');
 
                 $offerta -> save();
 

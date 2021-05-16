@@ -11,7 +11,6 @@ class Foto extends Model {
     protected $table = 'foto';
 
     protected $fillable = [
-        'id',
         'filename',
         'id_inserzione',
     ];

@@ -12,7 +12,6 @@ class Inserzione extends Model
     protected $table = 'inserzioni';
 
     protected $fillable = [
-        'id',
         'nome',
         'descrizione',
         'stato',

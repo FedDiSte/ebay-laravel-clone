@@ -3,28 +3,28 @@
 
     <div class="container">
         <div class="row">
-            <h1>Controlla lo stato delle tue aste</h1>
+            <h1>Controlla lo stato delle tue offerte</h1>
         </div>
         <div class="row">
             @if ($offerte->count() > 0)
-                @foreach ($offerte as $inserzione)
+                @foreach ($offerte->sortByDesc('prezzo')->unique('id_offerta') as $offerta)
                     <x-following_preview
-                        topOfferta="{{ Auth::user()->offerte->where('id_inserzione', $inserzione->id)->sortByDesc('prezzo')->first()->prezzo > $inserzione->offerte->sortByDesc('prezzo')->first()->prezzo
-    ? 1
-    : 0 }}">
+                        topOfferta="{{ $offerta->prezzo >= $offerta->inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ? 1 : 0 }}">
                         <x-slot name="nome">
-                            {{ $inserzione['nome'] }}
+                            {{ $offerta->inserzione->nome }}
                         </x-slot>
                         <x-slot name="prezzo">
-                            {{ $inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ?? $inserzione['prezzo'] }}
+                            {{ $offerta->prezzo }}
                         </x-slot>
                         <x-slot name="id">
-                            {{ $inserzione['id'] }}
+                            {{ $offerta->inserzione->id }}
                         </x-slot>
                     </x-following_preview>
                 @endforeach
             @else
-                Non hai piazzato ancora nessuna asta!
+                <div class="col-md-12">
+                    <h1 class="display-4">Non hai piazzato nessuna asta!</h1>
+                </div>
             @endif
         </div>
     </div>

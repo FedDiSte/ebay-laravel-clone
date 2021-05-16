@@ -36,64 +36,76 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="row mb-3">
-                    <p class="h1">{{ $inserzione->nome }}</p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Descrizione:
-                        <small class="text-muted">{{ $inserzione->descrizione }}</small>
-                    </p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Prezzo partenza:
-                        <small class="text-muted">{{ $inserzione->prezzo }}</small>
-                    </p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Ultimo prezzo:
-                        <small
-                            class="text-muted">{{ $inserzione->offerte->max('prezzo') ?? 'Non ci sono offerte' }}</small>
-                    </p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Creatore: <small class="text-muted">@php
-                        $utente = $inserzione['utente'];
-                        echo $utente['username'];
-                    @endphp</small>
-                    </p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Data inizio:
-                        <small class="text-muted">
-                            {{ Carbon\Carbon::parse($inserzione->created_at)->format('d/m/Y') }}
-                        </small>
-                    </p>
-                </div>
-                <div class="row mb-3">
-                    <p class="h3">Data fine:
-                        <small class="text-muted">
-                            {{ Carbon\Carbon::parse($inserzione->fine_inserzione)->format('d/m/Y') }}
-                        </small>
-                    </p>
-                </div>
-
-                {{-- TODO da terminare, finire di stampare informazioni su inserzione e metodo per piazzare la propria asta --}}
-                @if (!(Auth::id() == $inserzione->utente->id))
+                <div class="container">
                     <div class="row mb-3">
-                        <div class="col-md-8">
-                            <a href="/piazza-offerta/{{ $inserzione->id }}" class="btn btn-lg btn-outline-primary">
-                                Piazza un offerta
-                            </a>
-                        </div>
+                        <p class="h1">{{ $inserzione->nome }}</p>
                     </div>
-                @endif
-                @if (session('status') ?? '' == 'success')
-                    <div class="row">
-                        <div class="col-md-8 alert alert-success">
-                            <p>Asta piazzata con successo!</p>
-                        </div>
+                    <div class="row mb-3">
+                        <p class="h3">Descrizione:
+                            <small class="text-muted">{{ $inserzione->descrizione }}</small>
+                        </p>
                     </div>
-                @endif
+                    <div class="row mb-3">
+                        <p class="h3">Prezzo partenza:
+                            <small class="text-muted">{{ $inserzione->prezzo }}
+                            </small>
+                        </p>
+                    </div>
+                    <div class="row mb-3">
+                        <p class="h3">Ultimo prezzo:
+                            <small
+                                class="text-muted">{{ $inserzione->offerte->max('prezzo') ?? 'Non ci sono offerte' }}
+                            </small>
+                        </p>
+                    </div>
+                    @if (Auth::id() == $inserzione->offerte->sortByDesc('prezzo')->first()->utente->id)
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success">
+                                La tua offerta è la più alta!
+                            </div>
+                        </div>
+                    @endif
+                    <div class="row mb-3">
+                        <p class="h3">Creatore: <small class="text-muted">@php
+                            $utente = $inserzione['utente'];
+                            echo $utente['username'];
+                        @endphp</small>
+                        </p>
+                    </div>
+                    <div class="row mb-3">
+                        <p class="h3">Data inizio:
+                            <small class="text-muted">
+                                {{ Carbon\Carbon::parse($inserzione->created_at)->format('d/m/Y') }}
+                            </small>
+                        </p>
+                    </div>
+                    <div class="row mb-3">
+                        <p class="h3">Data fine:
+                            <small class="text-muted">
+                                {{ Carbon\Carbon::parse($inserzione->fine_inserzione)->format('d/m/Y') }}
+                            </small>
+                        </p>
+                    </div>
+
+                    {{-- TODO da terminare, finire di stampare informazioni su inserzione e metodo per piazzare la propria asta --}}
+                    @if (!(Auth::id() == $inserzione->utente->id))
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <a href="/piazza-offerta/{{ $inserzione->id }}"
+                                    class="btn btn-lg btn-outline-primary">
+                                    Piazza un offerta
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                    @if (session('status') ?? '' == 'success')
+                        <div class="row">
+                            <div class="col-md-12 alert alert-success">
+                                Asta piazzata con successo!
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

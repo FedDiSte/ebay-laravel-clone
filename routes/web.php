@@ -38,8 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
         return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> get()]);
     });
 
+    //Ritorna view per controllare le aste piazzate
     Route::get('/following', function() {
-        return view('ad.following', ['offerte' => Offerta::where('id_utente') -> get() -> sortByDesc('prezzo') -> groupBy('id_inserzione')]);
+        return view('ad.following', ['offerte' => Offerta::where('id_utente', Auth::id()) -> get()]);
     });
 
     //Ritorna un'inserzione cercata
