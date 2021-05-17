@@ -23,13 +23,13 @@ class InserzioneFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => 'Test obj',
+            'nome' => $this->faker->colorName(),
             'descrizione' => $this->faker->text(100),
             'stato' => 0,
             'prezzo' => 20.00,
-            'fine_inserzione' => $this->faker->dateTime('now', 'UTC'),
-            'id_creatore' => 1,
-            'genere_id' => 1,
+            'fine_inserzione' => $this->faker->dateTimeInInterval('tomorrow', '1 year', 'UTC'),
+            'id_creatore' => $this -> faker -> numberBetween(71, 171),
+            'genere_id' => $this -> faker -> numberBetween(1, 6),
         ];
     }
 }

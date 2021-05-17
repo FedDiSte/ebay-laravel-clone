@@ -7,20 +7,26 @@
                 <div class="container">
                     <div class="row text-center justify-content-center">
                         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                            {{-- TODO da inserire controllo se con foto (una o piu) o senza foto --}}
+                            <!-- TODO: da inserire controllo se con foto (una o piu) o senza foto -->
                             <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"
                                     aria-current="true"></button>
                                 <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"></button>
                             </div>
                             <div class="carousel-inner">
-                                @foreach ($inserzione->foto as $foto)
-                                    <div class="carousel-item
-                                    @if ($foto==$inserzione->foto->first()) active @endif">
-                                        <img src="{{ @asset($foto->filename) }}" alt="Placeholder"
-                                            class="w-100 d-block thumb-post">
+                                @if ($inserzione->foto->count() > 0)
+                                    @foreach ($inserzione->foto as $foto)
+                                        <div class="carousel-item
+                                @if ($foto==$inserzione->foto->first()) active @endif">
+                                            <img src="{{ asset($foto->filename) }}" alt="Placeholder"
+                                                class="w-100 d-block thumb-post">
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('img/dark-placeholder.png') }}" alt="Placeholder" class="w-100 d-block thumb-post">
                                     </div>
-                                @endforeach
+                                @endif
                             </div>
                             <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -58,12 +64,14 @@
                             </small>
                         </p>
                     </div>
-                    @if (Auth::id() == $inserzione->offerte->sortByDesc('prezzo')->first()->utente->id)
-                        <div class="row">
-                            <div class="col-md-12 alert alert-success">
-                                La tua offerta è la più alta!
+                    @if ($inserzione->offerte->count() > 0)
+                        @if (Auth::id() == $inserzione->offerte->sortByDesc('prezzo')->first()->utente->id)
+                            <div class="row">
+                                <div class="col-md-12 alert alert-success">
+                                    La tua offerta è la più alta!
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endif
                     <div class="row mb-3">
                         <p class="h3">Creatore: <small class="text-muted">@php
@@ -87,7 +95,7 @@
                         </p>
                     </div>
 
-                    {{-- TODO da terminare, finire di stampare informazioni su inserzione e metodo per piazzare la propria asta --}}
+                    <!-- TODO da terminare, finire di stampare informazioni su inserzione -->
                     @if (!(Auth::id() == $inserzione->utente->id))
                         <div class="row mb-3">
                             <div class="col-md-8">

@@ -1,5 +1,5 @@
 <div class="card mb-3">
-    <img src="{{ asset(App\Models\Inserzione::find($id)->foto->first()->filename) }}" alt="img" class="thumb-post">
+    <img src="{{ App\Models\Inserzione::find($id) -> foto -> count() > 0 ? asset(App\Models\Inserzione::find($id)->foto->first()->filename) : asset('img/dark-placeholder.png') }}" alt="img" class="thumb-post">
     <div class="card-body">
         <h5 class="card-title">{{ $nome }}</h5>
         <strong>Prezzo: </strong>

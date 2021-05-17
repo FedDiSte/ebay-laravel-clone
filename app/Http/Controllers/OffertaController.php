@@ -35,6 +35,10 @@ class OffertaController extends Controller {
 
                 $offerta -> save();
 
+                //Viene aggiornato il prezzo più alto nell'inserzione, utilizzato per il sorting nella ricerca
+                $inserzione -> prezzo_latest = $request -> input('prezzo');
+                $inserzione -> save();
+
                 return redirect('inserzione/'.$inserzione -> id)->with(['status' => 'success']);
             } else {
                 return redirect()->back()->withErrors(['status' => 'Hai inserito un offerta non valida, prova ad offrire di più']);
@@ -47,6 +51,10 @@ class OffertaController extends Controller {
             $offerta -> prezzo = $inserzione -> prezzo;
 
             $offerta -> save();
+
+            //Viene aggiornato il prezzo più alto nell'inserzione, utilizzato per il sorting nella ricerca
+            $inserzione -> prezzo_latest = $request -> input('prezzo');
+            $inserzione -> save();
 
             return redirect('inserzione/'.$inserzione -> id)->with(['status' => 'success']);
         } else {

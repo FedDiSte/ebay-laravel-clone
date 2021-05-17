@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Inserzione extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $table = 'inserzioni';
 
@@ -19,6 +20,15 @@ class Inserzione extends Model
         'fine_inserzione',
         'id_creatore',
         'genere_id',
+        'prezzo_latest'
+    ];
+
+    //utilizzata da ColumnSortable
+    public $sortable = [
+        'nome',
+        'prezzo',
+        'prezzo_latest',
+        'fine_inserzione',
     ];
 
     public function utente() {
@@ -35,6 +45,14 @@ class Inserzione extends Model
 
     public function offerte() {
         return $this -> hasMany(Offerta::class, 'id_inserzione', 'id');
+    }
+
+    public function prezzoAlto() {
+        if(offerte -> count() > 0) {
+            return $this -> offerte -> max('prezzo');
+        } else {
+            return $this -> prezzo;
+        }
     }
 
 }

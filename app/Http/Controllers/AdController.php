@@ -87,9 +87,8 @@ class AdController extends Controller
     }
 
     public function search(Request $request) {
-        $inserzioni = Inserzione::where('nome', 'like', '%'.$request -> input('q').'%') -> paginate();
+        $inserzioni = Inserzione::where('nome', 'like', '%'.$request -> input('q').'%') -> where('stato', 0) -> sortable() -> paginate(15);
         $inserzioni -> withPath('/search'.$request -> input('q'));
-        //TODO: da implementare sorting
         return view('ad.search', ['inserzioni' => $inserzioni]);
     }
 
