@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/piazza-offerta', [OffertaController::class, 'create']);
 
     //Route per la ricerca di inserzioni
-    Route::post('/search', [AdController::class, 'search']);
+    Route::get('/search', [AdController::class, 'search']);
 
 });
 

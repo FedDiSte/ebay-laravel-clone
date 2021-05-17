@@ -32,7 +32,7 @@
                 @else
                     <div class="col-md-12 mb-3">
                         <h6 class="display-6 text-muted">
-                            Ci dispaice ma non abbiamo trovato inserzioni per questo genere
+                            Ci dispiace ma non abbiamo trovato inserzioni per questo genere
                             </h1>
                     </div>
                 @endif
