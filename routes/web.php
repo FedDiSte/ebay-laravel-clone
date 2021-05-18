@@ -61,6 +61,11 @@ Route::group(['middleware' => ['auth']], function () {
     //Route per la ricerca di inserzioni
     Route::get('/search', [AdController::class, 'search']);
 
+    Route::get('/genere/{id}', function($id) {
+        $inserzioni = Inserzione::where('genere_id', $id) -> where('stato', 0) -> sortable() -> paginate(15);
+        return view('ad.search', ['inserzioni' => $inserzioni]);
+    });
+
 });
 
 //Route per utenti non autenticati

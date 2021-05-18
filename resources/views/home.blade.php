@@ -9,7 +9,7 @@
         </div>
         @foreach (App\Models\Genere::all() as $genere)
             <div class="row mb-3">
-                <p class="h1">{{ ucfirst($genere->nome) }}</p>
+                <p class="h1 text-primary">{{ ucfirst($genere->nome) }}</p>
             </div>
             <div class="row">
                 @if (App\Models\Inserzione::where('genere_id', $genere->id)->where('stato', 0)->get()->count() > 0)

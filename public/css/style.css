@@ -2,11 +2,23 @@ body{
     background-color: #fafafa;
 }
 
-.none {
-    display: none;
-}
-
 .thumb-post {
     object-fit: cover;
 }
 
+/* Utilizzato per dare la corretta posizione alle icone nel dropdown di sort nella search */
+
+.dropdown-menu a {
+    white-space: normal;
+}
+
+.dropdown-menu > li {
+    position: relative;
+}
+
+.dropdown-menu > li > i {
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+}
+ /* end */
