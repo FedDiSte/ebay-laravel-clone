@@ -3,7 +3,6 @@
     <x-search></x-search>
 
     <div class="container">
-        <!--TODO: Da sistemare links-->
         <div class="row mb-3">
             <div class="dropdown d-grid gap-2 mx-auto ">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,6 +34,4 @@
             {{ $inserzioni->links() }}
         </div>
     </div>
-
-    <!-- TODO aggiornare la grafica di questa pagina-->
 </x-master>

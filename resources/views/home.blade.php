@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 @if (App\Models\Inserzione::where('genere_id', $genere->id)->where('stato', 0)->get()->count() > 0)
-                    @foreach (App\Models\Inserzione::where('genere_id', $genere->id)->where('stato', 0)->get()->take(4)
+                    @foreach (App\Models\Inserzione::where('genere_id', $genere->id)->where('stato', 0)->inRandomOrder()->get()->take(4)
     as $inserzione)
                         <div class="col-md-3">
                             <x-inserzione_preview stato="{{ $inserzione->stato }}">

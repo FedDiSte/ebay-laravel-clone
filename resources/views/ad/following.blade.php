@@ -7,19 +7,21 @@
         </div>
         <div class="row">
             @if ($offerte->count() > 0)
-                @foreach ($offerte->sortByDesc('prezzo')->unique('id_offerta') as $offerta)
-                    <x-following_preview
-                        topOfferta="{{ $offerta->prezzo >= $offerta->inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ? 1 : 0 }}">
-                        <x-slot name="nome">
-                            {{ $offerta->inserzione->nome }}
-                        </x-slot>
-                        <x-slot name="prezzo">
-                            {{ $offerta->prezzo }}
-                        </x-slot>
-                        <x-slot name="id">
-                            {{ $offerta->inserzione->id }}
-                        </x-slot>
-                    </x-following_preview>
+                @foreach ($offerte->sortByDesc('prezzo') as $offerta)
+                    <div class="col-md-3">
+                        <x-following_preview
+                            topOfferta="{{ $offerta->prezzo >= $offerta->inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ? 1 : 0 }}">
+                            <x-slot name="nome">
+                                {{ $offerta->inserzione->nome }}
+                            </x-slot>
+                            <x-slot name="prezzo">
+                                {{ $offerta->prezzo }}
+                            </x-slot>
+                            <x-slot name="id">
+                                {{ $offerta->inserzione->id }}
+                            </x-slot>
+                        </x-following_preview>
+                    </div>
                 @endforeach
             @else
                 <div class="col-md-12">

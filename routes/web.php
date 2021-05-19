@@ -16,7 +16,7 @@ Route::get('test', [AdController::class, 'checkTermine']);
 Route::group(['middleware' => ['auth']], function () {
     //Route per index
     Route::get('/', function () {
-        return view('home', ['inserzioni' => Inserzione::where('stato', 0)->where('id_creatore' , '!=', Auth::id())->get()->take(20)]);
+        return view('home');
     })->name('home');
 
     //Route per metodo logout
@@ -35,12 +35,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     //View per visualizzare le inserzioni inserite
     Route::get('/my-ads', function () {
-        return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> get()]);
+        return view('ad.my-ads', ['inserzioni' => Inserzione::where('id_creatore', Auth::user() -> id) -> sortable() -> paginate(15)]);
     });
 
     //Ritorna view per controllare le aste piazzate
     Route::get('/following', function() {
-        return view('ad.following', ['offerte' => Offerta::where('id_utente', Auth::id()) -> get()]);
+        // dump(Offerta::where('id_utente', Auth::id()) -> get() -> groupBy('id_inserzione'));
+        // dd();
+        return view('ad.following', ['offerte' => Offerta::where('id_utente', Auth::id()) -> get() -> sortByDesc('prezzo') -> unique('id_inserzione')]);
     });
 
     //Ritorna un'inserzione cercata
