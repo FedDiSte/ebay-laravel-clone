@@ -11,36 +11,42 @@
                 <form action="/reset-password" method="POST" class="form-floating">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingEmail" placeholder="Email" name="email" aria-describedby="emailHelp" required>
+                        <input type="text" class="form-control" id="floatingEmail" placeholder="Email" name="email"
+                            aria-describedby="emailHelp" required>
                         <label for="floatingEmail">Email</label>
                         @if ($status ?? '' == 'email_not_found')
                             <div class="form-text text-danger" id="emailHelp">Email non trovata, riprova</div>
                         @endif
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                            name="password" required>
                         <label for="floatingPassword">Nuova password</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword_confirmation" placeholder="Conferma password" name="password_confirmation" required>
+                        <input type="password" class="form-control" id="floatingPassword_confirmation"
+                            placeholder="Conferma password" name="password_confirmation" required>
                         <label for="floatingPassword_confirmation">Conferma password</label>
                     </div>
-                    <input type="hidden" name="token" value="{{$token}}">
+                    <input type="hidden" name="token" value="{{ $token }}">
                     <div class="row align-items-center mb-3">
-                          <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Cambia la tua password</button>
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Cambia la tua
+                            password</button>
                     </div>
                 </form>
             </div>
             <div class="col-md-3"></div>
         </div>
-        @error('email')
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 alert alert-danger">
-                {{$email}}
+        @if ($errors -> any())
+            <div class="alert alert-danger">
+                <ul class="list-group">
+                    @foreach ($errors -> all() as $error)
+                        <li class="list-group-item list-group-item-danger">
+                            {{ $error }}
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            <div class="col-md-3"></div>
-        </div>
-        @enderror
+        @endif
     </div>
 </x-master>

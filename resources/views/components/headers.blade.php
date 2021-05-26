@@ -25,7 +25,7 @@
         </div>
         <div class="list-group mb-3">
             <a href="{{ url('/following') }}" class="list-group-item list-group-item-action"><i class="bi-search"></i>
-                Aste piazzate</a>
+                Aste inserite</a>
         </div>
         <div class="list-group mb-3" style="position: relative; bottom: 0">
             <a href="{{ url('/logout') }}" class="list-group-item list-group-item-danger list-group-item-action"><i

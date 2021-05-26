@@ -1,5 +1,6 @@
 <x-master>
     <x-headers></x-headers>
+    <x-search></x-search>
 
     <div class="container mt-2">
         <div class="row mb-3">
@@ -69,7 +70,7 @@
                         @if ($inserzione->offerte->count() > 0)
                             <ul class="list-group list-group-flush">
                                 @foreach ($inserzione->offerte->sortByDesc('prezzo')->unique('id_utente') as $index => $offerta)
-                                    @if ($offerta->utente->id == Auth::id() && ($index == 1))
+                                    @if ($offerta->utente->id == Auth::id() && $index == 1)
                                         <li class="list-group-item">
                                             <div class="alert alert-success">
                                                 <p class="card-text">
@@ -87,7 +88,8 @@
                                         </li>
                                     @else
                                         <li class="list-group-item">
-                                            Utente: {{$offerta -> utente -> username}} Prezzo: {{ $offerta -> prezzo }}
+                                            Utente: {{ $offerta->utente->username }} Prezzo:
+                                            {{ $offerta->prezzo }}
                                         </li>
                                     @endif
                                 @endforeach
@@ -95,7 +97,7 @@
                         @else
                             <div class="alert alert-success">
                                 <p class="card-text">
-                                    Ancora non ci sono offerte, è la tua occasione per aggiudicarti l'asta!
+                                    Ancora non ci sono offerte!
                                 </p>
                             </div>
                         @endif
@@ -117,7 +119,7 @@
                     @if (!(Auth::id() == $inserzione->utente->id))
                         <div class="card-footer d-grid gap-2">
                             <a href="/piazza-offerta/{{ $inserzione->id }}" class="btn btn-lg btn-outline-primary">
-                                Piazza un offerta
+                                Inserisci un offerta
                             </a>
                         </div>
                     @endif
@@ -126,7 +128,7 @@
             @if (session('status') ?? '' == 'success')
                 <div class="row">
                     <div class="col-md-12 alert alert-success">
-                        Asta piazzata con successo!
+                        Asta inserita con successo!
                     </div>
                 </div>
             @endif
@@ -146,10 +148,21 @@
             var minuti = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
             var secondi = Math.floor((differenza % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = "Affrettati hai ancora " + giorni + " giorni " +
-                ore + " ore " + minuti + " minuti " + secondi + " secondi prima che questa offerta termini";
+            if (giorni > 0) {
+                document.getElementById("countdown").innerHTML = "Hai ancora " + giorni + " giorni " +
+                    ore + " ore " + minuti + " minuti " + secondi + " secondi prima che questa offerta termini";
+            } else if( ore > 0 ) {
+                document.getElementById("countdown").innerHTML = "Affrettati hai ancora " +
+                    ore + " ore " + minuti + " minuti " + secondi + " secondi prima che questa offerta termini";
+            } else if ( minuti > 0 ) {
+                document.getElementById("countdown").innerHTML = "Il tempo sta per scadere! Mancano" +
+                    minuti + " minuti " + secondi + " secondi!";
+            } else {
+                document.getElementById("countdown").innerHTML = "Ma non hai l'ansia? Mancano solamente " +
+                    secondi + " secondi!";
+            }
 
-            if (differenza < 0) {
+            if (differenza <= 0) {
                 clearInterval(x);
                 document.getElementById("demo".innerHTML) = "Questa offerta è terminata!";
             }

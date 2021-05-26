@@ -52,6 +52,9 @@ class AdController extends Controller
                     $edit -> resize(1280, 720);
                 }
                 $edit -> save();
+
+                //viene liberata memoria
+                $edit = null;
                 Foto::create([
                     'filename' => $path,
                     'id_inserzione' => $inserzione -> id,
@@ -61,29 +64,6 @@ class AdController extends Controller
         }
 
         return redirect()->route('inserzione', $inserzione);
-    }
-
-    public function checkTermine() {
-        foreach(Inserzione::where('stato', 0) -> get() as $inserzione) {
-            //Controlla se si è raggiunto il tempo attuale per il termine dell'inserzione
-            if(Carbon::now() -> isAfter(Carbon::createFromTimeString($inserzione -> fine_inserzione))) {
-                //Se l'inserzione è terminata viene aggiornato lo stato, poi si procede a controllare se è stata venduta a qualcuno
-                $inserzione -> stato = 1;
-                if(($inserzione -> offerte -> count()) > 0) {
-                    $venditore = $inserzione -> utente;
-                    $acquirente = $inserzione -> offerte -> sortByDesc('prezzo') -> first() -> utente;
-
-                    $venditore -> notify(new VenditaCompletata($inserzione));
-                    $acquirente -> notify(new AcquistoCompletato($inserzione));
-                    foreach( $inserzione -> offerte -> where('id_utente', '!=', $acquirente -> id) as $offertaFallita) {
-                        $offertaFallita -> utente -> notify(new AcquistoFallito($offertaFallita));
-                    }
-                } else {
-                    $inserzione -> utente -> notify(new VenditaFallita($inserzione));
-                }
-                $inserzione -> save();
-            }
-        }
     }
 
     public function search(Request $request) {

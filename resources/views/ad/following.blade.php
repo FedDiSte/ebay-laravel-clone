@@ -1,5 +1,6 @@
 <x-master>
     <x-headers></x-headers>
+    <x-search></x-search>
 
     <div class="container">
         <div class="row">

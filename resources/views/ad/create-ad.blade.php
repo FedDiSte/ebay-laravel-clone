@@ -1,5 +1,6 @@
 <x-master>
     <x-headers></x-headers>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 my-5 px-5 py-2 card text-center">
@@ -7,7 +8,6 @@
                 <div class="text-start">
                     <form action="/create-ad" method="POST" class="form-floating" enctype="multipart/form-data">
                         @csrf
-                        {{-- TODO da aggiungere controlli su lunghezza dati --}}
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingNome" placeholder="Nome" name="nome"
                                 aria-describedby="nomeHelp" required>
