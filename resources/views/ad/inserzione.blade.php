@@ -148,23 +148,25 @@
             var minuti = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
             var secondi = Math.floor((differenza % (1000 * 60)) / 1000);
 
-            if (giorni > 0) {
-                document.getElementById("countdown").innerHTML = "Hai ancora " + giorni + " giorni " +
-                    ore + " ore " + minuti + " minuti " + secondi + " secondi prima che questa offerta termini";
-            } else if( ore > 0 ) {
-                document.getElementById("countdown").innerHTML = "Affrettati hai ancora " +
-                    ore + " ore " + minuti + " minuti " + secondi + " secondi prima che questa offerta termini";
-            } else if ( minuti > 0 ) {
-                document.getElementById("countdown").innerHTML = "Il tempo sta per scadere! Mancano" +
-                    minuti + " minuti " + secondi + " secondi!";
+            if (differenza > 0) {
+                if (giorni > 0) {
+                    document.getElementById("countdown").innerHTML = "Hai ancora " + giorni + " giorni " +
+                        ore + " ore " + minuti + " minuti " + secondi +
+                        " secondi prima che questa offerta termini";
+                } else if (ore > 0) {
+                    document.getElementById("countdown").innerHTML = "Affrettati hai ancora " +
+                        ore + " ore " + minuti + " minuti " + secondi +
+                        " secondi prima che questa offerta termini";
+                } else if (minuti > 0) {
+                    document.getElementById("countdown").innerHTML = "Il tempo sta per scadere! Mancano" +
+                        minuti + " minuti " + secondi + " secondi!";
+                } else {
+                    document.getElementById("countdown").innerHTML = "Ma non hai l'ansia? Mancano solamente " +
+                        secondi + " secondi!";
+                }
             } else {
-                document.getElementById("countdown").innerHTML = "Ma non hai l'ansia? Mancano solamente " +
-                    secondi + " secondi!";
-            }
-
-            if (differenza <= 0) {
                 clearInterval(x);
-                document.getElementById("demo".innerHTML) = "Questa offerta è terminata!";
+                document.getElementById("countdown").innerHTML = "Questa offerta è terminata!";
             }
         }, 1000);
 
