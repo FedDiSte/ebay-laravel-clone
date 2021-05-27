@@ -21,7 +21,7 @@
                                     {{ $inserzione->nome }}
                                 </x-slot>
                                 <x-slot name="prezzo">
-                                    {{ $inserzione->offerte->max('prezzo') ?? $inserzione->prezzo }}
+                                    {{ $inserzione->prezzo_latest ?? $inserzione->prezzo }}
                                 </x-slot>
                                 <x-slot name="id">
                                     {{ $inserzione->id }}

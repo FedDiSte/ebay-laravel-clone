@@ -6,7 +6,7 @@
             <div class="col-md-12 card my-5 px-5 py-2 text-center">
                 <h3 class="card-title">{{ $inserzione->nome }}</h3>
                 <h4 class="card-subtitle mb-2 text-muted">Prezzo attuale:
-                    {{ $inserzione->offerte->max('prezzo') ?? $inserzione->prezzo }}€
+                    {{ $inserzione->prezzo_latest ?? $inserzione->prezzo }}€
                 </h4>
                 <div class="text-start">
                     <form action="/piazza-offerta" method="POST" class="form-floating">

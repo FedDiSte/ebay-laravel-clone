@@ -8,10 +8,10 @@
         </div>
         <div class="row">
             @if ($offerte->count() > 0)
-                @foreach ($offerte->sortByDesc('prezzo') as $offerta)
+                @foreach ($offerte->sortByDesc('prezzo')->unique('id_inserzioned') as $offerta)
                     <div class="col-md-3">
                         <x-following_preview
-                            topOfferta="{{ $offerta->prezzo >= $offerta->inserzione->offerte->sortByDesc('prezzo')->first()->prezzo ? 1 : 0 }}">
+                            topOfferta="{{ $offerta->prezzo >= $offerta->inserzione->prezzo_latest ? 1 : 0 }}">
                             <x-slot name="nome">
                                 {{ $offerta->inserzione->nome }}
                             </x-slot>

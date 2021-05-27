@@ -47,11 +47,11 @@
                         </div>
                         <div class="row align-items-center mb-3">
                             <p class="text-danger form-text text-center" id="buttonHelp">
-                                Attenzione questi dati (per ora) {{-- TODO da aggiungere possibilita modifica --}} non potranno essere modificati
+                                Attenzione questi dati (per ora) non potranno essere modificati
                                 una volta inseriti
                             </p>
-                            <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Aggiungi questa
-                                inserzione
+                            <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
+                                Aggiungi questa inserzione
                             </button>
                         </div>
                     </form>
