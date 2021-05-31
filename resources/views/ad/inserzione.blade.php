@@ -116,7 +116,7 @@
                             Data fine: {{ Carbon\Carbon::parse($inserzione->fine_inserzione)->format('d/m/Y') }}
                         </p>
                     </div>
-                    @if (!(Auth::id() == $inserzione->utente->id))
+                    @if (!(Auth::id() == $inserzione->utente->id) && !($inserzione -> stato == 0))
                         <div class="card-footer d-grid gap-2">
                             <a href="/piazza-offerta/{{ $inserzione->id }}" class="btn btn-lg btn-outline-primary">
                                 Inserisci un offerta
