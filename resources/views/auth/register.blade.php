@@ -81,8 +81,7 @@
                         </select>
                         <label for="floatingSelect">Genere preferito</label>
                         <div class="form-text" id="genereHelp">
-                            Scegliere un genere preferito ci aiuta a personalizzare i risultati, in futuro potrai
-                            cambiarlo
+                            Scegliere un genere preferito ci aiuta a personalizzare i risultati
                         </div>
                         <div class="row align-items-center mb-3 mt-1">
                             <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Registrati</button>

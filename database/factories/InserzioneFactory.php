@@ -28,8 +28,8 @@ class InserzioneFactory extends Factory
             'stato' => 0,
             'prezzo' => 20.00,
             'fine_inserzione' => $this->faker->dateTimeInInterval('tomorrow', '1 year', 'UTC'),
-            'id_creatore' => $this -> faker -> numberBetween(71, 171),
-            'genere_id' => $this -> faker -> numberBetween(1, 6),
+            'id_creatore' => $this -> faker -> numberBetween(1, 100), //utenti generati da factory
+            'genere_id' => $this -> faker -> numberBetween(1, 5),
         ];
     }
 }

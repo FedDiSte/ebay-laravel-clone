@@ -47,8 +47,8 @@
                         </div>
                         <div class="row align-items-center mb-3">
                             <p class="text-danger form-text text-center" id="buttonHelp">
-                                Attenzione questi dati (per ora) non potranno essere modificati
-                                una volta inseriti
+                                Attenzione questi dati non potranno essere modificati
+                                una volta inseriti per aumentare la sicurezza dei nostri utenti
                             </p>
                             <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
                                 Aggiungi questa inserzione
