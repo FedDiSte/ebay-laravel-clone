@@ -70,7 +70,7 @@
                         @if ($inserzione->offerte->count() > 0)
                             <ul class="list-group list-group-flush">
                                 @foreach ($inserzione->offerte->sortByDesc('prezzo')->unique('id_utente') as $index => $offerta)
-                                    @if ($offerta->utente->id == Auth::id() && $index == 1)
+                                    @if ($offerta->utente->id == Auth::id() && $inserzione -> prezzo_latest == $offerta -> prezzo)
                                         <li class="list-group-item">
                                             <div class="alert alert-success">
                                                 <p class="card-text">
@@ -78,7 +78,7 @@
                                                 </p>
                                             </div>
                                         </li>
-                                    @elseif ($offerta -> utente -> id == Auth::id() && !($index == 1))
+                                    @elseif ($offerta -> utente -> id == Auth::id() && !($inserzione -> prezzo_latest == $offerta -> prezzo))
                                         <li class="list-group-item">
                                             <div class="alert alert-danger">
                                                 <p class="card-text">
