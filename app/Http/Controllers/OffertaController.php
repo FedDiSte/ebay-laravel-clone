@@ -26,7 +26,7 @@ class OffertaController extends Controller {
             Se uno di questi due controlli fallisce l'utente viene reindirizzato alla pagina precedente con l'errore
         */
         if( ($inserzione -> offerte -> count()) > 0) {
-            if( $request -> input('prezzo') > $inserzione -> prezzo_latest) ) {
+            if( $request -> input('prezzo') > $inserzione -> prezzo_latest) {
                 $offerta = new Offerta();
 
                 $offerta -> id_utente = Auth::id();
