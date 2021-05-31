@@ -7,7 +7,7 @@
             <p class="h1">I nostri consigli</p>
             <p class="h3">Esplora la nostra selezione di aste, divise per genere</p>
         </div>
-        @foreach (App\Models\Genere::all()->where('stato', 0)->get() as $genere)
+        @foreach (App\Models\Genere::all()->where('stato', 0) as $genere)
             <div class="row mb-3">
                 <p class="h1 text-primary">{{ ucfirst($genere->nome) }}</p>
             </div>
