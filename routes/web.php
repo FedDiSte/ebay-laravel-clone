@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Ritorna view per controllare le aste piazzate
     Route::get('/following', function() {
-        return view('ad.following', ['offerte' => Auth::user() -> offerte -> sortByDesc('prezzo') -> unique('id_inserzione');
+        return view('ad.following', ['offerte' => Auth::user() -> offerte -> sortByDesc('prezzo') -> unique('id_inserzione')]);
     });
 
     //Ritorna un'inserzione cercata
