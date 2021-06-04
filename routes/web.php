@@ -40,9 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Ritorna view per controllare le aste piazzate
     Route::get('/following', function() {
-        // dump(Offerta::where('id_utente', Auth::id()) -> get() -> groupBy('id_inserzione'));
-        // dd();
-        return view('ad.following', ['offerte' => Offerta::where('id_utente', Auth::id()) -> get() -> sortByDesc('prezzo') -> unique('id_inserzione')]);
+        return view('ad.following', ['offerte' => Auth::user() -> offerte -> sortByDesc('prezzo') -> unique('id_inserzione');
     });
 
     //Ritorna un'inserzione cercata
