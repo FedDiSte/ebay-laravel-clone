@@ -12,8 +12,8 @@
                     <form action="/piazza-offerta" method="POST" class="form-floating">
                         @csrf
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingPrezzo" name="prezzo"
-                                placeholder="Prezzo" aria-describedby="prezzoHelp">
+                            <input type="number" step="0.01" min="{{$inserzione -> prezzo_latest ?? $inserzione -> prezzo}}" class="form-control" id="floatingPrezzo" name="prezzo"
+                                placeholder="{{ $inserzione -> prezzo_latest ?? $inserzione -> prezzo}} €" aria-describedby="prezzoHelp">
                             <label for="floatingPrezzo">La tua offerta</label>
                             <div class="prezzoHelp" class="form-text">Piazza la tua offerta, una volta piazzata non può
                                 essere rimossa</div>

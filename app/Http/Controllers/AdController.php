@@ -28,7 +28,7 @@ class AdController extends Controller
             'foto[]' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
-        $request['prezzo'] = floatval($request -> input('prezzo'));
+        //$request['prezzo'] = floatval($request -> input('prezzo'));
 
         $inserzione = new Inserzione();
 
