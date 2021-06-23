@@ -7,7 +7,7 @@ use App\Models\Inserzione;
 use App\Notifications\VenditaCompletata;
 use App\Notifications\AcquistoCompletato;
 use App\Notifications\AcquistoFallito;
-use App\Notifications\VenditaFallita    ;
+use App\Notifications\VenditaFallita;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

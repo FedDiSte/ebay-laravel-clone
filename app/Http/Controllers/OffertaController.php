@@ -11,8 +11,6 @@ class OffertaController extends Controller {
 
     public function create(Request $request) {
 
-        $request -> prezzo = floatval($request -> input('prezzo'));
-
         $request -> validate([
             'prezzo' => 'required|numeric'
         ]);
